@@ -1,0 +1,8 @@
+export hello=hola dance=bailar export sing=chanter
+export hello=hola dance=bailar sing=chanter
+
+getcwd(char *buf, size_t size) - obtenir le répertoire de travail courant  
+
+chdir(const char *path)- Changer le répertoire courant
+
+isatty()
