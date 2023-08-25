@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pferreir <pferreir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsydelny <dsydelny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 21:21:22 by pferreir          #+#    #+#             */
-/*   Updated: 2023/07/28 00:32:32 by pferreir         ###   ########.fr       */
+/*   Updated: 2023/08/25 21:20:55 by dsydelny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,8 @@ int				ft_isalpha_(int c);
 int				ft_isspace(int c);
 char			**ft_split_isspace(char *str);
 char			**do_split_isspace(char *str, int nb);
+
+void	ft_strcat(char *dst, const char *src);
+
 
 #endif
