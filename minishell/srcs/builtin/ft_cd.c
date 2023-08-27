@@ -6,7 +6,7 @@
 /*   By: dsydelny <dsydelny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 21:09:53 by dsydelny          #+#    #+#             */
-/*   Updated: 2023/08/26 23:55:58 by dsydelny         ###   ########.fr       */
+/*   Updated: 2023/08/27 23:06:25 by dsydelny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ int	ft_cd(char **tab)
 	return (0);
 }
 
-int main(int ac, char **av)
-{
-	char *tab1[5] = {"tt", NULL}; // works
-	char *tab2[5] = {"..", "a", NULL}; // not work
-	char *tab3[5] = {"ssfd", NULL}; // not work
-	char *tab4[5] = {NULL}; // works
-	printf("BEFORE %s\n", getcwd(NULL, 1024));
-	ft_cd(tab4);
-	printf("AFTER %s\n", getcwd(NULL, 1024));
-	// ft_cd(tab2);
-	// ft_cd(tab3);
-}
+// int main(int ac, char **av)
+// {
+// 	char *tab1[5] = {"tt", NULL}; // works
+// 	char *tab2[5] = {"..", "a", NULL}; // not work
+// 	char *tab3[5] = {"ssfd", NULL}; // not work
+// 	char *tab4[5] = {NULL}; // works
+// 	printf("BEFORE %s\n", getcwd(NULL, 1024));
+// 	ft_cd(tab4);
+// 	printf("AFTER %s\n", getcwd(NULL, 1024));
+// 	// ft_cd(tab2);
+// 	// ft_cd(tab3);
+// }

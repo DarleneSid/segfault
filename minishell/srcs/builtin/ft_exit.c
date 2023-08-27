@@ -6,7 +6,7 @@
 /*   By: dsydelny <dsydelny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 00:01:49 by dsydelny          #+#    #+#             */
-/*   Updated: 2023/08/27 02:24:21 by dsydelny         ###   ########.fr       */
+/*   Updated: 2023/08/27 23:08:27 by dsydelny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,19 +106,19 @@ int	ft_exit(char **tab)
 	return (0);
 }
 
-int main()
-{
-	// char *tab1[50] = {"exit", "12", NULL}; // 
-	// char *tab2[50] = {"exit", "9223372036854775807", NULL}; // 
-	// char *tab3[50] = {"exit", "9223372036854775808", NULL}; // 
-	//char *tab4[50] = {"exit", NULL}; //
-	// char *tab5[50] = {"exit", "abc", "12", NULL}; //
-	char *tab6[50] = {"exit", "-12", NULL}; //
+// int main()
+// {
+// 	// char *tab1[50] = {"exit", "12", NULL}; // 
+// 	// char *tab2[50] = {"exit", "9223372036854775807", NULL}; // 
+// 	// char *tab3[50] = {"exit", "9223372036854775808", NULL}; // 
+// 	//char *tab4[50] = {"exit", NULL}; //
+// 	// char *tab5[50] = {"exit", "abc", "12", NULL}; //
+// 	char *tab6[50] = {"exit", "-12", NULL}; //
 	
-	// ft_exit(tab1);
-	// ft_exit(tab2);
-	//ft_exit(tab3);
-	//ft_exit(tab4);
-	// ft_exit(tab5);
-	ft_exit(tab6);	
-}
+// 	// ft_exit(tab1);
+// 	// ft_exit(tab2);
+// 	//ft_exit(tab3);
+// 	//ft_exit(tab4);
+// 	// ft_exit(tab5);
+// 	ft_exit(tab6);	
+// }

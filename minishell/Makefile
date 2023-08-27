@@ -7,7 +7,6 @@ DIR_SRCS		=	srcs
 DIR_OBJS		=	objs
 
 SRCS_NAMES		=	main.c \
-					ft_echo.c \
 					ft_expand.c \
 					parsing/ft_space.c \
 					parsing/ft_syntax.c \
