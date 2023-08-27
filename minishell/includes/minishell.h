@@ -6,7 +6,7 @@
 /*   By: dsydelny <dsydelny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:36:40 by pferreir          #+#    #+#             */
-/*   Updated: 2023/08/26 00:45:27 by dsydelny         ###   ########.fr       */
+/*   Updated: 2023/08/26 21:04:50 by dsydelny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,9 @@ void	ft_freetab(char **tab);
 void	redirection(t_data *data, t_cmd *cmds, int index);
 char	*check_cmd(t_data *data, char **env, char **tab);
 
+int		type_of_arr(char *s);
+void	mallocall(t_cmd	*cmds, char **tab);
+t_cmd 	parse(char **tab);
+void	free_cmd(t_cmd *cmds);
 
 #endif

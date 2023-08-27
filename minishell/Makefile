@@ -16,8 +16,11 @@ SRCS_NAMES		=	main.c \
 					parsing/env.c \
 					exec/error.c \
 					exec/path.c \
-					exec/pipex.c \
-					exec/utils.c
+					exec/exec.c \
+					exec/parse_arr.c \
+					exec/utils.c \
+					builtin/ft_cd.c \
+					builtin/ft_echo.c
 
 OBJS_NAMES		=	${SRCS_NAMES:.c=.o}
 
@@ -53,6 +56,7 @@ $(DIR_OBJS):
 	mkdir -p $(DIR_OBJS)
 	mkdir -p objs/parsing
 	mkdir -p objs/exec
+	mkdir -p objs/builtin
 
 clean:
 	make clean -C libft

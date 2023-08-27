@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsydelny <dsydelny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/11 20:52:19 by dsydelny          #+#    #+#             */
-/*   Updated: 2023/08/26 00:50:47 by dsydelny         ###   ########.fr       */
+/*   Created: 2023/08/11 20:52:19 by dsydelny          #+#    #+#             */
+/*   Updated: 2023/08/26 21:06:49 by dsydelny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	openfiles(t_cmd *cmds)
 {
-	int i;
+	int	i;
 	int fd;
 
 	i = 0;
-	while(cmds->file[i])
+	while (cmds->file[i])
 	{
 		if (cmds->type[i] == 1)
 			fd = open(cmds->file[i], O_CREAT | O_TRUNC | O_WRONLY, 0666);
@@ -28,9 +28,7 @@ void	openfiles(t_cmd *cmds)
 			fd = open(cmds->file[i], O_RDONLY);
 		if (fd == -1)
 		{
-			// free EVERYTHING
-			// error message
-			// exit
+			free_cmd(cmds);
 			fprintf(stderr, "%s\n", strerror(errno));
 			exit(1);
 		}
@@ -41,7 +39,6 @@ void	openfiles(t_cmd *cmds)
 		i++;
 	}
 }
-
 
 void	redirection(t_data *data, t_cmd *cmds, int index)
 {
@@ -67,16 +64,13 @@ char	*check_cmd(t_data *data, char **env, char **tab)
 		if (!data->path)
 		{
 			ft_printf("bash: %s: command not found\n", tab[0]);
-			ft_freetab(tab);
-			exit(1);
+			return (NULL);
 		}
 		cmd = find_path(data, tab[0]);
 		if (!cmd)
 		{
 			ft_printf("bash: %s: command not found\n", tab[0]);
-			ft_freetab(tab);
-			ft_freetab(data->path);
-			exit(127);
+			return (NULL);
 		}
 	}
 	else

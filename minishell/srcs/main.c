@@ -6,7 +6,7 @@
 /*   By: dsydelny <dsydelny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 03:41:15 by pferreir          #+#    #+#             */
-/*   Updated: 2023/08/25 21:29:08 by dsydelny         ###   ########.fr       */
+/*   Updated: 2023/08/26 21:05:01 by dsydelny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	i = 0;
-	monenv = ft_copy(env);
+	data.env = ft_copy(env);
 	while (1)
 	{
 		str = readline("pao> ");
@@ -56,10 +56,10 @@ int	main(int ac, char **av, char **env)
 		tab = ft_split(str, '|');
 		execution(&data, tab, env);
 		// ft_echo(tab);
-		// ft_export(tab, &monenv);
+		// ft_export(tab, &data.env);
 		free(str);
 		ft_freetab(tab);
 	}
 	free(str);
-	ft_freetab(monenv);
+	ft_freetab(data.env);
 }
