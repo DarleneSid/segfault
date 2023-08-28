@@ -6,7 +6,7 @@
 /*   By: pferreir <pferreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 19:57:23 by pferreir          #+#    #+#             */
-/*   Updated: 2023/08/01 03:57:47 by pferreir         ###   ########.fr       */
+/*   Updated: 2023/08/10 02:48:08 by pferreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,92 +31,75 @@ char	**ft_copy(char **env)
 	return (cpenv);
 }
 
-int	replace_in_env(char **tmp, char *add, char ***env)
+int	replace_in_env(char *add, char ***env)
 {
-	int	len;
+	int	j;
 	int	i;
 
-	len = 0;
+	j = 0;
 	i = 0;
+	if (ft_strlen_tab(*env) == 0)
+		return (1);
 	while (add[i] != '=')
 		i++;
-	while (tmp && tmp[len])
+	while ((*env)[j])
 	{
-		if (tmp[len][i] && !ft_strncmp(add, tmp[len], i))
+		if ((*env)[j][i] && !ft_strncmp(add, (*env)[j], i))
 		{
-			free(tmp[len]);
-			tmp[len] = ft_strdup(add);
-			*env = tmp;
+			free((*env)[j]);
+			(*env)[j] = ft_strdup(add);
 			return (0);
 		}
-		len++;
+		j++;
 	}
-	return (len);
+	return (j);
 }
 
-char	***ft_add_to_env(char *str, int start, int end, char ***env)
+void	ft_add_to_env(char *add, char ***env)
 {
 	int		i;
 	char	**new;
-	char	**tmp;
 	int		len;
-	char	*add;
 
-	tmp = *env;
-	i = -1;
-	add = ft_substr(str, start, end - start + 1);
-	len = replace_in_env(tmp, add, env);
+	i = 0;
+	len = replace_in_env(add, env);
 	if (!len)
-		return (free(add), env);
+		return ;
 	new = ft_calloc(len + 2, sizeof(char *));
 	if (!new)
-		return (NULL);
-	while (++i < len)
+		return ;
+	while (env && *env && (*env)[i])
 	{
-		new[i] = ft_strdup(tmp[i]);
-		free(tmp[i]);
+		new[i] = ft_strdup((*env)[i]);
+		free((*env)[i]);
+		i++;
 	}
-	new[len] = ft_strdup(add);
-	free(tmp);
+	new[i] = ft_strdup(add);
+	free(*env);
 	*env = new;
-	return (free(add), env);
 }
 
-char	***ft_remove_from_env(char *str, int start, int end, char ***env)
+void	ft_remove_from_env(char *remove, char ***env)
 {
 	int		i;
-	size_t	len_r;
-	size_t	len;
+	int		j;
 	char	**new;
-	char	**tmp;
-	int		index;
-	char	*remove;
+	int		len;
 
-	tmp = *env;
-	index = -1;
-	len = 0;
-	remove = ft_substr(str, start, end - start + 1);
-	len_r = end - start + 1;
 	i = 0;
-	while (tmp && tmp[len])
+	j = 0;
+	new = ft_calloc(ft_strlen_tab(*env), sizeof(char *));
+	if (!new)
+		return ;
+	while (env && (*env) && (*env)[i])
 	{
-		if (tmp[len][len_r] && !ft_strncmp(remove, tmp[len], len_r))
-			index = len;
-		len++;
-	}
-	if (index >= 0)
-	{
-		new = ft_calloc(len - 1, sizeof(char *));
-		if (!new)
-			return (NULL);
-		while (++i < len)
+		if (strcmp((*env)[i], remove))
 		{
-			if (i != index)
-				new[i] = ft_strdup(tmp[i]);
-			i++;
+			new[j++] = ft_strdup((*env)[i]);
 		}
-		ft_freetab(tmp);
-		*env = new;
+		free((*env)[i]);
+		i++;
 	}
-	return (free(remove), env);
+	free(*env);
+	*env = new;
 }

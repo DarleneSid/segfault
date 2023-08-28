@@ -6,7 +6,7 @@
 /*   By: pferreir <pferreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 01:17:03 by pferreir          #+#    #+#             */
-/*   Updated: 2023/08/01 02:00:22 by pferreir         ###   ########.fr       */
+/*   Updated: 2023/08/28 21:28:21 by pferreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,88 @@ char	*ft_space(char *str)
 			new[i++] = *str++;
 	}
 	return (free(tmp), new);
+}
+
+int count_previous_quote(char *str, int i)
+{
+	int	i1;
+	int	count;
+
+	i1 = 0;
+	count = 0;
+	while (str && i1 < i)
+	{
+		if (str[i1] == '"' || str[i1] == '\'')
+			count++;
+		i1++;
+	}
+	if (count % 2 == 0)
+		return (1);
+	return (0);
+}
+
+int	count_useless_quote(char *str)
+{
+	int	i;
+	int	len;
+	int	count;
+
+	i = 0;
+	len = ft_strlen(str);
+	count = 0;
+	while (str && str[i])
+	{
+		if (i + 2 < len && count_previous_quote(str, i)
+		&& (str[i] == '"' || str[i] == '\'') && str[i + 1] == str[i])
+				i += 2;
+		else if (i + 2 < len && count_previous_quote(str, i)
+		&& (str[i] == '"' || str[i] == '\'') && str[i + 2] == str[i])
+		{
+			count += 1;
+			i += 3;
+		}
+		else
+		{
+			count++;
+			i++;
+		}
+	}
+	return (count);
+}
+
+char	*remove_useless_quote(char *str)
+{
+	char	*new;
+	int		i;
+	int		i1;
+	int		len;
+	int		size;
+
+	i = 0;
+	i1 = 0;
+	len = count_useless_quote(str);
+	size = ft_strlen(str);
+	if (len == size)
+		return (str);
+	new = malloc(sizeof(char) * (len + 1));
+	while (i1 < len && i < size)
+	{
+		if (i + 1 < size && count_previous_quote(str, i)
+		&& (str[i] == '\'' || str[i] == '"') && str[i + 1] == str[i])
+				i += 2;
+		else if (i + 2 < size && count_previous_quote(str, i)
+		&& (str[i] == '"' || str[i] == '\'') && str[i + 2] == str[i])
+		{
+			new[i1] = -str[i + 1];
+			i += 3;
+			i1++;
+		}
+		else
+			new[i1++] = str[i++];
+	}
+	new[i1] = '\0';
+	free(str);
+	if (count_useless_quote(new) != len)
+		remove_useless_quote(new);
+	return (new);
 }

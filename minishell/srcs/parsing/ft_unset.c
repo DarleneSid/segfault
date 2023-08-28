@@ -6,65 +6,38 @@
 /*   By: pferreir <pferreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 03:18:53 by pferreir          #+#    #+#             */
-/*   Updated: 2023/08/01 22:47:29 by pferreir         ###   ########.fr       */
+/*   Updated: 2023/08/28 01:58:01 by pferreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-	// while (str && str[j])
-	// {
-	// 	i = 0;
-	// 	len = ft_strlen(str[j]);
-	// 	while (i < len)
-	// 	{
-	// 		if (i + 6 < len && (i == 0 || (i > 0 && ft_isspace(str[j][i - 1])))
-	// 			&& !strncmp("unset", &	str[j][i], 5) && ft_isspace(str[j][i + 5]))
-	// 		{
-	// 			i += 6;
-	// 			start = i;
-	// 			unset_str(&str[j][i], env);
-	// 			break ;
-	// 		}
-	// 		i++;
-	// 	}
-	// 	j++;
-	// }
-
-int	ft_unset(char	**str, char ***env)
+int	ft_unset(char **tab, char ***env)
 {
-	size_t		j;
-
-	j = 1;
-	while (str && str[j])
-	{
-		unset_str(str[j], env);
-		j++;
-	}
-	return (1);
-}
-
-int	unset_str(char *str, char ***env)
-{
-	int	i;
-	int	len;
-	int	start;
+	int		i;
+	int		j;
+	char	*str;
 
 	i = 0;
-	len = ft_strlen(str);
-	start = 0;
-	while (i < len)
+	if (!tab || strcmp(tab[i], "unset") || !(*env))
+		return (0);
+	if (tab[++i] == NULL)
+		return (1);
+	while (tab && tab[i])
 	{
-		while (i < len && ft_isspace(str[i]))
-			i++;
-		if (i + 6 < len && !strncmp("unset ", &str[i], 6))
-			i += 6;
-		if (ft_isalpha_(str[i]))
+		j = -1;
+		str = ft_strjoin(tab[i], "=");
+		while ((*env)[++j])
 		{
-			while (i < len && !ft_isspace(str[i]))
-				i++;
-			env = ft_remove_from_env(str, start, i, env);
+			if (!strncmp((*env)[j], str, ft_strlen(str)))
+			{
+				free(str);
+				str = strdup((*env)[j]);
+				ft_remove_from_env(str, env);
+				break ;
+			}
 		}
+		free (str);
 		i++;
 	}
 	return (1);
