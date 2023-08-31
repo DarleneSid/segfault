@@ -32,24 +32,30 @@
 
 int		check_quote(char *str);
 int		check_rafter(char *str, int i);
-int		ft_synthax(char *str);
+int		ft_syntax(char *str);
+char		*ft_unquote_str(char *str, int len, int *i, char c);
+void		ft_unquote(char **tab, char ***env);
 
 int		count_space(char *str);
-char	*ft_space(char *input);
+char		*ft_space(char *input);
+int		count_useless_quote(char *str);
+char		*remove_useless_quote(char *str);
 
-char	**ft_copy(char **env);
-int		replace_in_env(char **tmp, char *add, char ***env);
-char	***ft_add_to_env(char *str, int start, int end, char ***env);
-char	***ft_remove_from_env(char *str, int start, int end, char ***env);
+char		**ft_copy(char **env);
+int		replace_in_env(char *add, char ***env);
+void		ft_add_to_env(char *str, char ***env);
+void		ft_remove_from_env(char *str, char ***env);
 
-void	ft_unquote(char *str);
 int		ft_export(char	**str, char ***env);
 
-int		ft_unset(char	**str, char ***env);
-int		unset_str(char *str, char ***env);
+int		ft_unset(char **tab, char ***env);
 
 int		check_echo_option(char *str);
 int		ft_echo(char **tab);
+
+void		printtab(char **env);
+
+int		ft_expand(char	**str, char ***env);
 
 typedef struct t_data {
 	int		nbcmd;
