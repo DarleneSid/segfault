@@ -30,6 +30,7 @@
 # define DQUOTE '\"'
 # define SYNTAXERROR "syntax error !\n"
 
+int		ft_strlen_tab(char **tab);
 int		check_quote(char *str);
 int		check_rafter(char *str, int i);
 int		ft_syntax(char *str);
