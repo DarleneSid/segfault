@@ -6,7 +6,7 @@
 /*   By: dsydelny <dsydelny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 17:44:09 by dsydelny          #+#    #+#             */
-/*   Updated: 2023/08/26 18:36:24 by dsydelny         ###   ########.fr       */
+/*   Updated: 2023/08/29 00:22:29 by dsydelny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ char	*find_path(t_data *data, char *cmd)
 	{
 		tmp = ft_strjoin(data->path[i], "/");
 		new = ft_strjoin(tmp, cmd);
+		free(tmp);
 		if (access(new, F_OK | X_OK) != -1)
 			return (new);
-		free(tmp);
 		free(new);
 		i++;
 	}

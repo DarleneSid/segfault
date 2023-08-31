@@ -1,4 +1,9 @@
-int main()
-{
-	return (12);
-}
+implement:
+
+cd 
+pwd 
+export
+unset
+exit 
+echo 
+env not done

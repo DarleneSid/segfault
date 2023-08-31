@@ -6,7 +6,7 @@
 /*   By: dsydelny <dsydelny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:52:19 by dsydelny          #+#    #+#             */
-/*   Updated: 2023/08/27 15:20:36 by dsydelny         ###   ########.fr       */
+/*   Updated: 2023/08/29 00:22:10 by dsydelny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,7 @@ char	*check_cmd(t_data *data, char **env, char **tab)
 		}
 		cmd = find_path(data, tab[0]);
 		if (!cmd)
-		{
-			ft_printf("bash: %s: command not found\n", tab[0]);
 			return (NULL);
-		}
 	}
 	else
 		cmd = ft_strdup(tab[0]);

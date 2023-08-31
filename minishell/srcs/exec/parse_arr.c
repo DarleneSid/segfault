@@ -6,7 +6,7 @@
 /*   By: dsydelny <dsydelny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 18:39:30 by dsydelny          #+#    #+#             */
-/*   Updated: 2023/08/26 20:48:50 by dsydelny         ###   ########.fr       */
+/*   Updated: 2023/08/31 19:11:08 by dsydelny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void	print_cmd(t_cmd *cmds)
 	}
 }
 
-t_cmd	parse(char **tab)
+t_cmd	*parse(char **tab)
 {
-	t_cmd	cmds;
+	static t_cmd	cmds = {0};
 	int		i;
 	int		t;
 	int		a;
@@ -95,5 +95,5 @@ t_cmd	parse(char **tab)
 	}
 	cmds.cmd = cmds.arg[0];
 	print_cmd(&cmds);
-	return (cmds);
+	return (&cmds);
 }

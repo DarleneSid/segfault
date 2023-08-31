@@ -6,7 +6,7 @@
 /*   By: dsydelny <dsydelny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 03:41:15 by pferreir          #+#    #+#             */
-/*   Updated: 2023/08/26 21:05:01 by dsydelny         ###   ########.fr       */
+/*   Updated: 2023/09/01 00:25:55 by dsydelny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int ac, char **av, char **env)
 	int		i;
 	char	**monenv;
 	char	**tab;
+	t_cmd *cmds;
 
 	(void)ac;
 	(void)av;
@@ -53,13 +54,14 @@ int	main(int ac, char **av, char **env)
 		// 	continue ;
 		// }
 		// tab = ft_split_isspace(str);
-		tab = ft_split(str, '|');
-		execution(&data, tab, env);
+		data.split = ft_split(str, '|');
+		execution(&data, data.split, env);
 		// ft_echo(tab);
 		// ft_export(tab, &data.env);
 		free(str);
-		ft_freetab(tab);
+		ft_freetab(data.split);
 	}
 	free(str);
 	ft_freetab(data.env);
+	// ft_freetab(data.split);
 }

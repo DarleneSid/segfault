@@ -19,7 +19,11 @@ SRCS_NAMES		=	main.c \
 					exec/parse_arr.c \
 					exec/utils.c \
 					builtin/ft_cd.c \
-					builtin/ft_echo.c
+					builtin/ft_echo.c \
+					builtin/ft_exit.c \
+					builtin/ft_pwd.c \
+
+
 
 OBJS_NAMES		=	${SRCS_NAMES:.c=.o}
 
@@ -37,7 +41,7 @@ CC				=	cc
 
 CDFLAGS 		= -MMD -MP
 
-CFLAGS			=	-g3# -Wall -Werror -Wextra
+CFLAGS			=	-g3 -Wall -Werror -Wextra
 
 MAKEFLAGS		=	--no-print-directory
 
