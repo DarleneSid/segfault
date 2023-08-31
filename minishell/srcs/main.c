@@ -32,29 +32,41 @@ int	main(int ac, char **av, char **env)
 		if (!*str)
 		{
 			free(str);
+			printf("empty input\n");
 			continue ;
 		}
 		add_history(str);
-		// if (!check_quote(str))
-		// {
-		// 	free(str);
-		// 	continue ;
-		// }
-		// str = ft_space(str);
-		// printf("%s\n", str);
-		// check_quote(str);
-		// printf("%s\n", str);
-		// if (!str)
-		// 	return (0);
-		// if (!ft_synthax(str))
-		// {
-		// 	free(str);
-		// 	printf(SYNTAXERROR);
-		// 	continue ;
-		// }
-		// tab = ft_split_isspace(str);
-		tab = ft_split(str, '|');
-		execution(&data, tab, env);
+		str = ft_space(str);
+		ft_expand(&str, &monenv);
+		if (!check_quote(str))
+		{
+		 	free(str);
+			printf("quote error\n");
+		 	continue ;
+		}
+		str = remove_useless_quote(str);
+		if (str[0] == 0)
+		{
+			free(str);
+			printf("no string\n");
+			continue ;
+		}
+		if (!ft_syntax(str))
+		{
+			free(str);
+			printf("syntax error\n");
+			continue ;
+		}
+		if (str)
+			tab = ft_split_isspace(str);
+		ft_unquote(tab, &monenv);
+		ft_echo(tab);
+		ft_export(tab, &monenv);
+		ft_unset(tab, &monenv);
+		if (tab && !strncmp(tab[0], "env", 3))
+			printtab(monenv);
+		//tab = ft_split(str, '|');
+		//execution(&data, tab, env);
 		// ft_echo(tab);
 		// ft_export(tab, &data.env);
 		free(str);
