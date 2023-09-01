@@ -6,7 +6,7 @@
 /*   By: dsydelny <dsydelny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:23:12 by dsydelny          #+#    #+#             */
-/*   Updated: 2023/09/01 02:19:45 by dsydelny         ###   ########.fr       */
+/*   Updated: 2023/09/02 01:20:36 by dsydelny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,39 +39,39 @@ void	free_inchildprocess(t_data *data, t_cmd *cmds)
 
 int	builtin(char *str)
 {
-	if (!ft_strncmp(str, "cd", 2) || !ft_strncmp(str, "pwd", 3)
-	|| !ft_strncmp(str, "export", 6) ||!ft_strncmp(str, "unset", 5)
-	||!ft_strncmp(str, "exit", 4) || !ft_strncmp(str, "echo", 4))
+	if (!ft_strcmp(str, "cd") || !ft_strcmp(str, "pwd")
+	|| !ft_strcmp(str, "export") ||!ft_strcmp(str, "unset")
+	||!ft_strcmp(str, "exit") || !ft_strcmp(str, "echo"))
 		return (1);
 	return (0);
 }
 
-void	call_builtin(char *str, t_cmd *cmds, char **env)
+int	call_builtin(char *str, t_cmd *cmds, char **env)
 {
-	if (!ft_strncmp(str, "cd", 2))
-		ft_cd(cmds->arg);
-	else if (!ft_strncmp(str, "pwd", 3))
-	{
-		ft_pwd(cmds->arg);
-	}
-	else if (!ft_strncmp(str, "export", 6))
-		ft_export(cmds->arg, &env);
-	else if (!ft_strncmp(str, "unset", 5))
-		ft_unset(cmds->arg, &env);
-	else if (!ft_strncmp(str, "exit", 4))
-		ft_exit(cmds->arg, cmds->data, cmds);
-	else if (!ft_strncmp(str, "echo", 4))
-		ft_echo(cmds->arg);
+	if (!ft_strcmp(str, "cd"))
+		return (ft_cd(cmds->arg), 1);
+	else if (!ft_strcmp(str, "pwd"))
+		return (ft_pwd(cmds->arg), 1);
+	else if (!ft_strcmp(str, "export"))
+		return (ft_export(cmds->arg, &env), 1);
+	else if (!ft_strcmp(str, "unset"))
+		return (ft_unset(cmds->arg, &env), 1);
+	else if (!ft_strcmp(str, "exit"))
+		return (ft_exit(cmds->arg, cmds->data, cmds), 1);
+	else if (!ft_strcmp(str, "echo"))
+		return (ft_echo(cmds->arg), 1);
 	// if (!ft_strcmp(str, "env"))
 	// 	ft_env(cmds->arg);
 	// free_inchildprocess(cmds->data, cmds);
+	else
+		return (0);
 }
 
 int	child_process(t_data *data, char **tab, char **env, int i)
 {
 	char	**arg;
 	char	*cmd;
-	t_cmd	*cmds;
+	// t_cmd	*cmds;
 
 	free(data->pid);
 	data->arg = ft_split(tab[i], ' ');
@@ -82,24 +82,25 @@ int	child_process(t_data *data, char **tab, char **env, int i)
 		ft_printf("bash: : command not found\n");
 		return (free(data->arg), exit(1), 1);
 	}
-	cmds = parse(data->arg);
-	redirection(data, cmds, i); 
-	if (!cmds->cmd)
+	data->cmds = parse(data->arg);
+	data->cmds->data = data;
+	redirection(data, data->cmds, i); 
+	if (!data->cmds->cmd)
 	{
-		free_inchildprocess(data, cmds);
+		free_inchildprocess(data, data->cmds);
 		exit (1);
 	}
-	if (builtin(tab[i]))
-		call_builtin (tab[i], cmds, env);
+	if (builtin(data->cmds->cmd))
+		call_builtin (data->cmds->cmd, data->cmds, env);
 	else
 	{
-		cmd = check_cmd(data, env, cmds->arg);
+		cmd = check_cmd(data, env, data->cmds->arg);
 		if (cmd)
-			execve(cmd, cmds->arg, env);
-		the_perror(cmds->cmd);
+			execve(cmd, data->cmds->arg, env);
+		the_perror(data->cmds->cmd);
 		free(cmd);
 	}
-	free_inchildprocess(data, cmds);
+	free_inchildprocess(data, data->cmds);
 	exit(127);
 }
 
@@ -140,47 +141,45 @@ void	print_tab(char **tab)
 	}
 }
 
-int	only_builtin(t_data *data, char **tab, char **env)
+int    ft_strlen_tab(char **tab)
 {
-	data->arg = ft_split(tab[0], ' ');
-	
-	if (!data->arg)
-		exit(1);
-	if (!*data->arg)
-	{
-		ft_printf("bash: : command not found\n");
-		return (free(data->arg), exit(1), 1);
-	}
-	data->cmds = parse(data->arg);
-	data->cmds->data = data;
-	if (builtin(tab[0]))
-		call_builtin(tab[0], data->cmds, env);
-	else
-	{
-		data->cmds->cmd = check_cmd(data, env, data->cmds->arg);
-		the_perror(data->cmds->cmd);
-		free(data->cmds->cmd);
-	}
-	free_cmd(data->cmds);
-	ft_freetab(data->arg);
-	ft_freetab(data->path);
-	return (0);
+    int    i;
+
+    i = 0;
+    while (tab[i])
+        i++;
+    return (i);
 }
 
 void	execution(t_data *data, char **tab, char **env)
 {
 	int	i;
 	char *cmd;
+	
 
 	i = 0;
+	printf("[[[[[[[%s]]]]]]]\n", tab[0]);
 	data->nbcmd = count_len(tab);
-	if (data->nbcmd == 1 && builtin(tab[0]))
+	data->arg = ft_split(tab[0], ' ');
+	if (!data->arg)
+		exit(1);
+	if (!*data->arg)
 	{
-		only_builtin(data, tab, env);
-		return ;
+		ft_printf("bash: : command not found\n");
+		free(data->arg);
+		exit(1);
+	}
+	data->cmds = parse(data->arg);
+	data->cmds->data = data;
+	if (data->nbcmd == 1 && builtin(data->cmds->cmd))
+	{
+		printf("i am builtin %s\n", tab[0]);
+		call_builtin(data->cmds->cmd, data->cmds, env);
 	}
 	else
 	{
+		free_cmd(data->cmds);
+		ft_freetab(data->arg);
 		init(data, data->nbcmd, tab);
 		while (i < data->nbcmd)
 		{

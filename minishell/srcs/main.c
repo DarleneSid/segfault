@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dsydelny <dsydelny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 03:41:15 by pferreir          #+#    #+#             */
-/*   Updated: 2023/09/01 21:07:04 by mgamil           ###   ########.fr       */
+/*   Updated: 2023/09/01 00:25:55 by dsydelny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	i = 0;
 	data.env = ft_copy(env);
-	char *tmp = malloc(100);
 	while (1)
 	{
 		str = readline("pao> ");

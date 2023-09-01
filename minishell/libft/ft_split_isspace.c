@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_isspace.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pferreir <pferreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 17:24:08 by pferreir          #+#    #+#             */
-/*   Updated: 2023/09/01 21:04:54 by mgamil           ###   ########.fr       */
+/*   Updated: 2023/07/28 00:27:32 by pferreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,10 @@ char	**do_split_isspace(char *str, int nb)
 
 char	**ft_split_isspace(char *str)
 {
+	int	i;
 	int	nb;
 
+	i = 0;
 	if (!str)
 		return (NULL);
 	nb = count_words_isspace(str);

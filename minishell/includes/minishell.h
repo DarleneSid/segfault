@@ -6,7 +6,7 @@
 /*   By: dsydelny <dsydelny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:36:40 by pferreir          #+#    #+#             */
-/*   Updated: 2023/09/01 02:23:43 by dsydelny         ###   ########.fr       */
+/*   Updated: 2023/09/02 01:20:40 by dsydelny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef	struct t_cmd {
 }		t_cmd;
 
 int		ft_exit(char **tab, t_data *data, t_cmd *cmds);
-void	call_builtin(char *str, t_cmd *cmds, char **env);
+int		call_builtin(char *str, t_cmd *cmds, char **env);
 int		builtin(char *str);
 void	free_inchildprocess(t_data *data, t_cmd *cmds);
 int		ft_pwd(char **tab);
