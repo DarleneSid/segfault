@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pferreir <pferreir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 17:24:08 by pferreir          #+#    #+#             */
-/*   Updated: 2023/07/28 00:21:15 by pferreir         ###   ########.fr       */
+/*   Updated: 2023/09/01 21:04:10 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,8 @@ char	**do_split(char *str, char c, int nb)
 
 char	**ft_split(char *str, char c)
 {
-	int	i;
 	int	nb;
 
-	i = 0;
 	if (!str)
 		return (NULL);
 	nb = countwords(str, c);
