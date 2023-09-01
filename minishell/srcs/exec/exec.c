@@ -6,7 +6,7 @@
 /*   By: dsydelny <dsydelny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:23:12 by dsydelny          #+#    #+#             */
-/*   Updated: 2023/09/01 01:18:56 by dsydelny         ###   ########.fr       */
+/*   Updated: 2023/09/01 02:19:45 by dsydelny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	free_inchildprocess(t_data *data, t_cmd *cmds)
 	ft_freetab(data->path);
 }
 
-int	builtin(char *str, t_cmd *cmds, char **env)
+int	builtin(char *str)
 {
 	if (!ft_strncmp(str, "cd", 2) || !ft_strncmp(str, "pwd", 3)
 	|| !ft_strncmp(str, "export", 6) ||!ft_strncmp(str, "unset", 5)
@@ -89,7 +89,7 @@ int	child_process(t_data *data, char **tab, char **env, int i)
 		free_inchildprocess(data, cmds);
 		exit (1);
 	}
-	if (builtin(tab[i], cmds, env))
+	if (builtin(tab[i]))
 		call_builtin (tab[i], cmds, env);
 	else
 	{
@@ -153,7 +153,7 @@ int	only_builtin(t_data *data, char **tab, char **env)
 	}
 	data->cmds = parse(data->arg);
 	data->cmds->data = data;
-	if (builtin(tab[0], data->cmds, env))
+	if (builtin(tab[0]))
 		call_builtin(tab[0], data->cmds, env);
 	else
 	{
@@ -170,10 +170,11 @@ int	only_builtin(t_data *data, char **tab, char **env)
 void	execution(t_data *data, char **tab, char **env)
 {
 	int	i;
+	char *cmd;
 
 	i = 0;
 	data->nbcmd = count_len(tab);
-	if (data->nbcmd == 1 ) // chck is there is builtinn
+	if (data->nbcmd == 1 && builtin(tab[0]))
 	{
 		only_builtin(data, tab, env);
 		return ;

@@ -6,7 +6,7 @@
 /*   By: dsydelny <dsydelny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 18:39:30 by dsydelny          #+#    #+#             */
-/*   Updated: 2023/08/31 19:11:08 by dsydelny         ###   ########.fr       */
+/*   Updated: 2023/09/01 02:57:19 by dsydelny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	print_cmd(t_cmd *cmds)
 	int	i;
 
 	if (cmds->cmd)
-		fprintf(stderr, "CMD NAME = {%s}\n", cmds->cmd);
+		fprintf(stderr, "CMD NAME = {%s}\nCMD ARGS = ", cmds->cmd);
 	i = 0;
 	while (cmds->arg[i])
 		fprintf(stderr, "[%s]", cmds->arg[i++]);

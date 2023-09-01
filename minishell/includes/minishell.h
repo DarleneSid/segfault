@@ -6,7 +6,7 @@
 /*   By: dsydelny <dsydelny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:36:40 by pferreir          #+#    #+#             */
-/*   Updated: 2023/09/01 01:04:01 by dsydelny         ###   ########.fr       */
+/*   Updated: 2023/09/01 02:23:43 by dsydelny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct t_data {
 	char	**env;
 	char	**path;
 	int		*pid;
+	int		exit_code;
 	char	**arg;
 	char	**split;
 	struct t_cmd	*cmds;
@@ -77,7 +78,7 @@ typedef	struct t_cmd {
 
 int		ft_exit(char **tab, t_data *data, t_cmd *cmds);
 void	call_builtin(char *str, t_cmd *cmds, char **env);
-int		builtin(char *str, t_cmd *cmds, char **env);
+int		builtin(char *str);
 void	free_inchildprocess(t_data *data, t_cmd *cmds);
 int		ft_pwd(char **tab);
 // tab = {<}{infile1}{wc}{-l}{>}{out1}{>>}{append1}{<<}{heredoc1}{-c}{>}{out2}{>>}{append2}{<}{infile2}
